@@ -1,0 +1,17 @@
+{
+  "name": "discordtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.io": "^1.6.5",
+    "lodash": "^3.10.1",
+    "node-opus": "^0.1.11"
+  }
+}
