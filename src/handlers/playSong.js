@@ -17,6 +17,10 @@ const knownSongs = {
             'carl poppa': {
                 file: './sounds/carl_poppa.mp3',
                 title: 'Carl Poppa (La Jiggy Jar Jar Doo)'
+            },
+            '5seconds': {
+                file: './sounds/5seconds.mp3',
+                title: '5secondstest'
             }
 }
 
@@ -36,7 +40,7 @@ const handler = function handler ({user, userID, channelID, message, event}) {
 
     this.setPresence({game: {name: knownSongs[song].title}})
     playSoundFile.bind(this)(knownSongs[song].file, channelToJoin.id)
-    .then(function() {
+    .then(() => {
         this.setPresence({game: {name: null}})
     })
     return
