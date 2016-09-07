@@ -1,11 +1,32 @@
+
+const config = require('./config.json')
+
 const Discord = require('discord.io')
 const bot = new Discord.Client({
-    token: "MjIzMDMyNzY2NDQxMzI0NTQ1.CrGF_A.vToGG7_A2PGsQZNmclI-mq3Wi1Y",
+    token: config.token,
     autorun: true
 })
 
 bot.on('ready', function() {
     console.log(bot.username + " - (" + bot.id + ")")
+    const myProps = {
+        id: JSON.stringify(bot.id),
+        username: JSON.stringify(bot.username),
+        email: JSON.stringify(bot.email),
+        discriminator: JSON.stringify(bot.discriminator),
+        avatar: JSON.stringify(bot.avatar),
+        bot: JSON.stringify(bot.bot),
+        verifed: JSON.stringify(bot.verifed),
+        connected: JSON.stringify(bot.connected),
+        presenceStatus: JSON.stringify(bot.presenceStatus),
+        inviteURL: JSON.stringify(bot.inviteURL),
+        servers: JSON.stringify(bot.servers),
+        channels: JSON.stringify(bot.channels),
+        users: JSON.stringify(bot.users),
+        directMessages: JSON.stringify(bot.directMessages),
+        internals: JSON.stringify(bot.internals)
+    }
+    fs.writeFile('myProps.json', myProps)
 })
 
 bot.on('message', function(user, userID, channelID, message, event) {
