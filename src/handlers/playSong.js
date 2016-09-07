@@ -22,7 +22,7 @@ const knownSongs = {
 
 const handler = function handler ({user, userID, channelID, message, event}) {
     const song = message.slice(3).join(' ')
-    const server = getServerFromChannel(channelID)
+    const server = getServerFromChannel(channelID, this)
     const channels = server.channels
     const channelIds = Object.getOwnPropertyNames(channels)
     let channel,
@@ -33,12 +33,11 @@ const handler = function handler ({user, userID, channelID, message, event}) {
             channelToJoin = channel
         }
     }
-//        rememberStatus =
-    // this.setPresence({game: 'The Setup - Favored Nations'})
-    this.setPresence({game: knownSongs[song].title})
+
+    this.setPresence({game: {name: knownSongs[song].title}})
     playSoundFile.bind(this)(knownSongs[song].file, channelToJoin.id)
     .then(function() {
-        this.setPresence({game:null})
+        this.setPresence({game: {name: null}})
     })
     return
 }
@@ -46,8 +45,8 @@ const handler = function handler ({user, userID, channelID, message, event}) {
 export default handler
 
 function playSoundFile (file, channelID) {
-    return new Promise(function(resolve, reject) {
-        this.getAudioContext({ channel: channelID, stereo: true}, function(stream) {
+    return new Promise((resolve, reject) => {
+        this.getAudioContext(channelID, function(error, stream) {
             stream.playAudioFile(file)
             stream.once('fileEnd', function() {
                 resolve()
