@@ -1,9 +1,9 @@
 
-const config = require('./config.json')
+import config from './config.json'
 
-const fs = require('fs')
+import fs from 'fs'
 
-const Discord = require('discord.io')
+import Discord from 'discord.io'
 const bot = new Discord.Client({
     token: config.token,
     autorun: true
