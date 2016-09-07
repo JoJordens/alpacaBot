@@ -1,7 +1,7 @@
+import fs from 'fs'
 
 import config from './config.json'
-
-import fs from 'fs'
+import commands from './commands'
 
 import Discord from 'discord.io'
 const bot = new Discord.Client({
@@ -28,7 +28,7 @@ bot.on('ready', function() {
         directMessages: bot.directMessages,
         internals: bot.internals
     }
-    fs.writeFile('myProps.json', JSON.strinfigy(myProps))
+    fs.writeFile('myProps.json', JSON.stringify(myProps))
 })
 
 bot.on('message', function(user, userID, channelID, message, event) {
@@ -38,6 +38,10 @@ bot.on('message', function(user, userID, channelID, message, event) {
             message: "pong"
         })
     }
+
+    const splitMessage = message.split(' ')
+    const handler = commands[splitMessage[1]]
+    handler.bind(this)({user, userID, channelID, message: splitMessage, event})
 })
 
 // // https://discordapp.com/oauth2/authorize?client_id=223032766441324545&scope=bot&permissions=346200
