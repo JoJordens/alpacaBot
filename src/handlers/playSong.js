@@ -25,7 +25,12 @@ const knownSongs = {
 }
 
 const handler = function handler ({user, userID, channelID, message, event}) {
-    const song = message.slice(3).join(' ')
+    if ( Object.prototype.toString.apply(message[2]).slice(8, -1) !== 'Number' )
+        return this.sendMessage({
+            to: channelID,
+            message: "You messed up again..."
+        })
+    // const serverId = this.channels[channelID].guild_id
     const server = getServerFromChannel(channelID, this)
     const channels = server.channels
     const channelIds = Object.getOwnPropertyNames(channels)
@@ -38,6 +43,7 @@ const handler = function handler ({user, userID, channelID, message, event}) {
         }
     }
 
+    const song = message.slice(3).join(' ')
     this.setPresence({game: {name: knownSongs[song].title}})
     playSoundFile.bind(this)(knownSongs[song].file, channelToJoin.id)
     .then(() => {
