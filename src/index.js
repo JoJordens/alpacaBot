@@ -28,7 +28,7 @@ bot.on('ready', function() {
         directMessages: bot.directMessages,
         internals: bot.internals
     }
-    fs.writeFile('myProps.json', JSON.stringify(myProps))
+    fs.writeFile('myProps.json', JSON.stringify(myProps, null, 4))
 })
 
 bot.on('message', function(user, userID, channelID, message, event) {
