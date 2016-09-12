@@ -20,7 +20,7 @@ const helpObjects = {
 const handler = function handler ({user, userID, channelID, message, event}) {
     let message = ''
     if ( message[2] )
-        message = JSON.stringify(helpObjects[message[2], null, 4)
+        message = JSON.stringify(helpObjects[message[2]], null, 4)
     else {
         const commandNames = Object.getOwnPropertyNames(helpObjects)
         commandNames.forEach(a=>message+=`\n${a}`)
