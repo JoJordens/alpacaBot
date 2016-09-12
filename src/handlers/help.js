@@ -18,12 +18,12 @@ const helpObjects = {
 }
 
 const handler = function handler ({user, userID, channelID, message, event}) {
-    let message = ''
+    let helpMessage = ''
     if ( message[2] )
-        message = JSON.stringify(helpObjects[message[2]], null, 4)
+        helpMessage = JSON.stringify(helpObjects[message[2]], null, 4)
     else {
         const commandNames = Object.getOwnPropertyNames(helpObjects)
-        commandNames.forEach(a=>message+=`\n${a}`)
+        commandNames.forEach(a=>helpMessage+=`\n${a}`)
         // message += `\n${addAlias.command}`
         // message += `\n${joinVoiceChannel.command}`
         // message += `\n${leaveVoiceChannel.command}`
@@ -31,7 +31,7 @@ const handler = function handler ({user, userID, channelID, message, event}) {
     }
     return bot.sendMessage({
         to: channelID,
-        message: `\`\`\`\n${message}\n\`\`\``
+        message: `\`\`\`\n${helpMessage}\n\`\`\``
     })
 }
 
