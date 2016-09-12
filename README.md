@@ -4,7 +4,7 @@
 
 create `config.json` in root folder
 
-``` json
+```json
 {
     "token": ""
 }
@@ -19,3 +19,18 @@ add your BOT's token to the config
 ## run bot
 
 just run build/index.js with node and you're done
+
+
+## help export template
+
+```json
+{
+    "command": 
+    "arguments": 
+    "description": 
+}
+```
+
+
+todo:
+list aliases in help command response

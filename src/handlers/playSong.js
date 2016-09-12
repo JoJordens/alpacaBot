@@ -59,3 +59,11 @@ function playSoundFile (file, channelID) {
         })
     })
 }
+
+const help = {
+    command: 'playSong',
+    arguments: '<songname>',
+    description: 'Tells the bot to play the specified song in the voice channel it\'s joined.\nTitles with multiple words are seperated by single whitespaces.'
+}
+
+export { help }

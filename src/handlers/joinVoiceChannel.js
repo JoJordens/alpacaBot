@@ -26,3 +26,11 @@ function joinVChannel (channelID) {
         })
     })
 }
+
+const help = {
+    command: 'joinVoiceChannel',
+    arguments: '<channelNameOrId>',
+    description: 'Tells the bot to join the specified voice channel.\nSpecify channel by the exact name or position id starting from 0.'
+}
+
+export { help }

@@ -6,3 +6,10 @@ const handler = function handler ({user, userID, channelID, message, event}) {
 }
 
 export default handler
+
+const help = {
+    command: 'leaveVoiceChannel',
+    description: 'Tells the bot to leave the voice channel it currently is in.'
+}
+
+export { help }

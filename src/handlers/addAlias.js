@@ -7,3 +7,11 @@ const handler = function handler ({user, userID, channelID, message, event}) {
 }
 
 export default handler
+
+const help = {
+    command: 'addAlias',
+    arguments: '<alias> <command>',
+    description: 'Creates <alias> for <command>.'
+}
+
+export { help }
