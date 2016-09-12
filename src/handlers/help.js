@@ -2,6 +2,7 @@ import { help as addAlias } from './addAlias'
 import { help as joinVoiceChannel } from './joinVoiceChannel'
 import { help as leaveVoiceChannel } from './leaveVoiceChannel'
 import { help as playSong } from './playSong'
+import { help as deleteMessages } from './deleteMessages'
 
 const help = {
     command: 'help',
@@ -14,7 +15,8 @@ const helpObjects = {
     joinVoiceChannel,
     leaveVoiceChannel,
     playSong,
-    help
+    help,
+    deleteMessages
 }
 
 const handler = function handler ({user, userID, channelID, message, event}) {
@@ -24,10 +26,6 @@ const handler = function handler ({user, userID, channelID, message, event}) {
     else {
         const commandNames = Object.getOwnPropertyNames(helpObjects)
         commandNames.forEach(a=>helpMessage+=`\n${a}`)
-        // message += `\n${addAlias.command}`
-        // message += `\n${joinVoiceChannel.command}`
-        // message += `\n${leaveVoiceChannel.command}`
-        // message += `\n${playSong.command}`
     }
     return this.sendMessage({
         to: channelID,

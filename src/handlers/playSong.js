@@ -29,9 +29,9 @@ const knownSongs = {
         file: './sounds/kiss_the_sky.mp3',
         title: 'Kiss The Sky (artist name too long)'
     },
-    'pet semetary': {
-        file: './sounds/pet_semetary.mp3',
-        title: 'Ramones - Pet Semetary'
+    'pet sematary': {
+        file: './sounds/pet_sematary.mp3',
+        title: 'Ramones - Pet Sematary'
     }
 }
 
