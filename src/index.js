@@ -9,10 +9,7 @@ const bot = new Discord.Client({
     autorun: true
 })
 
-let myId
-
 bot.on('ready', function() {
-    myId = bot.id
     console.log(bot.username + " - (" + bot.id + ")")
     const myProps = {
         id: bot.id,
@@ -38,7 +35,7 @@ bot.on('message', function(user, userID, channelID, message, event) {
     const mentions = event.d.mentions
     let iGotMentioned = false
     for ( let x = 0, l = mentions.length; x < l; x++ ) {
-        if ( mentions[x].id === myId ) {
+        if ( mentions[x].id === this.id ) {
             iGotMentioned = true
             break
         }
@@ -50,7 +47,7 @@ bot.on('message', function(user, userID, channelID, message, event) {
 
 
     const splitMessage = message.split(' ')
-    if ( splitMessage[0] !== `<@${myId}>` )
+    if ( splitMessage[0] !== `<@${this.id}>` )
         return true
 
     if (splitMessage[1] === "ping") {

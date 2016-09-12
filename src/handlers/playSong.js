@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import getServerFromChannel from '../toolbox/getServerFromChannel'
 
 const knownSongs = {
     'the setup': {
@@ -25,32 +24,19 @@ const knownSongs = {
     'cold beer': {
         file: './sounds/cold_beer.mp3',
         title: 'Cold Beer - Jesse Stewart'
+    },
+    'kiss the sky': {
+        file: './sounds/kiss_the_sky.mp3',
+        title: 'Kiss The Sky (artist name too long)'
     }
 }
 
 const handler = function handler ({user, userID, channelID, message, event}) {
-    const channelParameter = parseInt(message[2])
-    if ( isNaN(channelParameter) )
-        return this.sendMessage({
-            to: channelID,
-            message: "You messed up again..."
-        })
-    // const serverId = this.channels[channelID].guild_id
-    const server = getServerFromChannel(channelID, this)
-    const channels = server.channels
-    const channelIds = Object.getOwnPropertyNames(channels)
-    let channel,
-        channelToJoin
-    for ( let x = 0, l = channelIds.length; x < l; x++ ) {
-        channel = channels[channelIds[x]]
-        if ( channel.type === 'voice' && ( channel.name.toLowerCase() === message[2] || channel.position == message[2] ) ) {
-            channelToJoin = channel
-        }
-    }
+    const channelId = this.connectedVoiceChannels[this.channels[channelID].guild_id]
 
-    const song = message.slice(3).join(' ')
+    const song = message.slice(2).join(' ')
     this.setPresence({game: {name: knownSongs[song].title}})
-    playSoundFile.bind(this)(knownSongs[song].file, channelToJoin.id)
+    playSoundFile.bind(this)(knownSongs[song].file, channelId)
     .then(() => {
         this.setPresence({game: {name: null}})
     })

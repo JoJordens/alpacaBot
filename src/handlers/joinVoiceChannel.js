@@ -1,9 +1,5 @@
-import getServerFromChannel from '../toolbox/getServerFromChannel'
-
-// const currentVoiceChannels = []
-
 const handler = function handler ({user, userID, channelID, message, event}) {
-    const server = getServerFromChannel(channelID, this)
+    const server = this.servers[this.channels[channelID].guild_id]
     const channels = server.channels
     const channelIds = Object.getOwnPropertyNames(channels)
     let channel,
@@ -15,7 +11,7 @@ const handler = function handler ({user, userID, channelID, message, event}) {
         }
     }
     if ( channelToJoin ) {
-        // currentVoiceChannels.push(channelToJoin.id)
+        this.connectedVoiceChannels = Object.assign({}, this.connectedVoiceChannels||{}, {[server.id]: channelToJoin.id})
         joinVChannel.bind(this)(channelToJoin.id)
     }
     return
