@@ -2,6 +2,7 @@ import fs from 'fs'
 
 import config from './config.json'
 import commands from './commands'
+import aliases from '../aliases.json'
 
 import Discord from 'discord.io'
 const bot = new Discord.Client({
@@ -57,9 +58,16 @@ bot.on('message', function(user, userID, channelID, message, event) {
         })
     }
 
-    const handler = commands[splitMessage[1]]
-    handler.bind(this)({user, userID, channelID, message: splitMessage, event})
+    const command = getCommandFromAlias(splitMessage[1])
+
+    const handler = commands[command]
+    if ( handler )
+        handler.bind(this)({user, userID, channelID, message: splitMessage, event})
 })
+
+function getCommandFromAlias (alias) {
+    return aliases[alias] || alias
+}
 
 // // https://discordapp.com/oauth2/authorize?client_id=223032766441324545&scope=bot&permissions=346200
 
