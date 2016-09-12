@@ -3,17 +3,18 @@ import { help as joinVoiceChannel } from './joinVoiceChannel'
 import { help as leaveVoiceChannel } from './leaveVoiceChannel'
 import { help as playSong } from './playSong'
 
+const help = {
+    command: 'help',
+    arguments: '[command]',
+    description: 'Get the list of available commands or detailed help on a single command.'
+}
+
 const helpObjects = {
     addAlias,
     joinVoiceChannel,
     leaveVoiceChannel,
-    playSong
-}
-
-const help = {
-    command: 'help',
-    arguments: '[command]'
-    description: 'Get the list of available commands or detailed help on a single command.'
+    playSong,
+    help
 }
 
 const handler = function handler ({user, userID, channelID, message, event}) {
