@@ -25,7 +25,8 @@ const knownSongs = {
 }
 
 const handler = function handler ({user, userID, channelID, message, event}) {
-    if ( Object.prototype.toString.apply(message[2]).slice(8, -1) !== 'Number' )
+    const channelParameter = parseInt(message[2])
+    if ( isNaN(channelParameter) )
         return this.sendMessage({
             to: channelID,
             message: "You messed up again..."
