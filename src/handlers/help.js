@@ -29,7 +29,7 @@ const handler = function handler ({user, userID, channelID, message, event}) {
         // message += `\n${leaveVoiceChannel.command}`
         // message += `\n${playSong.command}`
     }
-    return bot.sendMessage({
+    return this.sendMessage({
         to: channelID,
         message: `\`\`\`\n${helpMessage}\n\`\`\``
     })
