@@ -2,26 +2,30 @@ import _ from 'lodash'
 import getServerFromChannel from '../toolbox/getServerFromChannel'
 
 const knownSongs = {
-            'the setup': {
-                file: './sounds/the_setup.mp3',
-                title: 'The Setup - Favored Nations'
-            },
-            'bushes of love': {
-                file: './sounds/bushes_of_love.mp3',
-                title: 'Bushes of Love'
-            },
-            'not the future': {
-                file: './sounds/not_the_future.mp3',
-                title: 'Not The Future'
-            },
-            'carl poppa': {
-                file: './sounds/carl_poppa.mp3',
-                title: 'Carl Poppa (La Jiggy Jar Jar Doo)'
-            },
-            '5seconds': {
-                file: './sounds/5seconds.mp3',
-                title: '5secondstest'
-            }
+    'the setup': {
+        file: './sounds/the_setup.mp3',
+        title: 'The Setup - Favored Nations'
+    },
+    'bushes of love': {
+        file: './sounds/bushes_of_love.mp3',
+        title: 'Bushes of Love'
+    },
+    'not the future': {
+        file: './sounds/not_the_future.mp3',
+        title: 'Not The Future'
+    },
+    'carl poppa': {
+        file: './sounds/carl_poppa.mp3',
+        title: 'Carl Poppa (La Jiggy Jar Jar Doo)'
+    },
+    '5seconds': {
+        file: './sounds/5seconds.mp3',
+        title: '5secondstest'
+    },
+    'cold beer': {
+        file: './sounds/cold_beer.mp3',
+        title: 'Cold Beer - Jesse Stewart'
+    }
 }
 
 const handler = function handler ({user, userID, channelID, message, event}) {
