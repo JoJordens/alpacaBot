@@ -58,6 +58,10 @@ bot.on('message', function(user, userID, channelID, message, event) {
         })
     }
 
+    if ( splitMessage[1] === 'postmessages' ) {
+        sendOneMessage(123, channelID)
+    }
+
     const command = getCommandFromAlias(splitMessage[1])
 
     const handler = commands[command]
@@ -67,6 +71,19 @@ bot.on('message', function(user, userID, channelID, message, event) {
 
 function getCommandFromAlias (alias) {
     return aliases[alias] || alias
+}
+
+function sendOneMessage (number, channelID) {
+    bot.sendMessage({
+        to: channelID,
+        message: number
+    }, ()=>{
+        if ( number > 0 ) {
+            setTimeout(()=>{
+                sendOneMessage(number-1, channelID)
+            }, 1000)
+        }
+    })
 }
 
 // // https://discordapp.com/oauth2/authorize?client_id=223032766441324545&scope=bot&permissions=346200
