@@ -38,9 +38,17 @@ const knownSongs = {
 const handler = function handler ({user, userID, channelID, message, event}) {
     const channelId = this.connectedVoiceChannels[this.channels[channelID].guild_id]
 
-    const song = message.slice(2).join(' ')
-    this.setPresence({game: {name: knownSongs[song].title}})
-    playSoundFile.bind(this)(knownSongs[song].file, channelId)
+    let songname
+    if ( message[2].toLowerCase() === 'something' )
+        const songNames = Object.getOwnPropertynames(knownSongs)
+        songname = knownSongs[songNames[Math.round( Math.random() * (songNames.length-1) )]
+    else
+        songname = message.slice(2).join(' ')
+    const song = knownSongs[songName]
+    if ( !song )
+        return
+    this.setPresence({game: {name: song.title}})
+    playSoundFile.bind(this)(song.file, channelId)
     .then(() => {
         this.setPresence({game: {name: null}})
     })
