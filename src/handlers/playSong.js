@@ -32,18 +32,22 @@ const knownSongs = {
     'pet sematary': {
         file: './sounds/pet_sematary.mp3',
         title: 'Ramones - Pet Sematary'
+    },
+    'wicked': {
+        file:'./sounds/wicked.mp3',
+        title: 'Cage the Elephant - Ain\'t no Rest for the Wicked'
     }
 }
 
 const handler = function handler ({user, userID, channelID, message, event}) {
     const channelId = this.connectedVoiceChannels[this.channels[channelID].guild_id]
 
-    let songname
-    if ( message[2].toLowerCase() === 'something' )
-        const songNames = Object.getOwnPropertynames(knownSongs)
-        songname = knownSongs[songNames[Math.round( Math.random() * (songNames.length-1) )]
-    else
-        songname = message.slice(2).join(' ')
+    let songName
+    if ( message[2].toLowerCase() === 'something' ) {
+        const songNames = Object.getOwnPropertyNames(knownSongs)
+        songName = songNames[Math.round( Math.random() * (songNames.length-1) )]
+    } else
+        songName = message.slice(2).join(' ')
     const song = knownSongs[songName]
     if ( !song )
         return
