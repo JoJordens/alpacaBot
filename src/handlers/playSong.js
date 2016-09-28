@@ -17,10 +17,6 @@ const knownSongs = {
         file: './sounds/carl_poppa.mp3',
         title: 'Carl Poppa (La Jiggy Jar Jar Doo)'
     },
-    '5seconds': {
-        file: './sounds/5seconds.mp3',
-        title: '5secondstest'
-    },
     'cold beer': {
         file: './sounds/cold_beer.mp3',
         title: 'Cold Beer - Jesse Stewart'

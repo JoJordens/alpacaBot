@@ -1,0 +1,12 @@
+* show aliases in help
+
+* store songlist in json (like aliases)
+
+* use database instead of json files
+
+* add command to create custom commands (which will be commands that just respond with a custom message)
+createCommand serverRules "Read about the rules here: url"
+
+* aliases with arguments rather than just commandname aliases
+
+* stream from youtube
