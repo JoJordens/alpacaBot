@@ -138,7 +138,9 @@ function playMusicFromYT (url, channelID) {
 }
 
 function deleteFile (file) {
-    fs.unlink(file)
+    fs.unlink(file, error => {
+        // TODO log error
+    })
 }
 
 const help = {
