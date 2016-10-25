@@ -30,6 +30,8 @@ bot.on('ready', function() {
         internals: bot.internals
     }
     fs.writeFile('myProps.json', JSON.stringify(myProps, null, 4))
+
+    bot.connectedVoiceChannels = {}
 })
 
 bot.on('message', function(user, userID, channelID, message, event) {
