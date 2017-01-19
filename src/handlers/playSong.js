@@ -54,6 +54,10 @@ const knownSongs = {
     'dbd': {
         file:'./sounds/dbd.mp3',
         title: 'Dead by Daylight'
+    },
+    'test': {
+        file: './sounds/5seconds.mp3',
+        title: 'testsound'
     }
 }
 
@@ -74,8 +78,8 @@ const handler = function handler ({user, userID, channelID, message, event}) {
     const song = knownSongs[songName]
 
     if ( song ) {
-        songQueue.push(song, channelId)
-        playNextSong().bind(this)
+        songQueue.push({song: song, channelId: channelId})
+        playNextSong.bind(this)()
     } else {
         const url = message[2]
         let formattedUrl
@@ -95,8 +99,8 @@ const handler = function handler ({user, userID, channelID, message, event}) {
             }
         }
 
-        songQueue.push(formattedUrl, channelId)
-        playNextSong().bind(this)
+        songQueue.push({formattedUrl: formattedUrl, channelId: channelId})
+        playNextSong.bind(this)()
     }
 }
 
@@ -105,17 +109,20 @@ export default handler
 function playNextSong () {
     if ( !playing ) {
         playing = true
-        const song = songQueue.shift()
-        if ( song.title ) {
+        const queuedSong = songQueue.shift() || {}
+        const channelId = queuedSong.channelId
+        if ( queuedSong.song ) {
+            const song = queuedSong.song
             this.setPresence({game: {name: song.title}})
             playSoundFile.bind(this)(song.file, channelId)
                 .then(() => {
-                    songFinishedStartNext().bind(this)
+                    songFinishedStartNext.bind(this)()
                 })
-        } else if ( song ) {
+        } else if ( queuedSong.formattedUrl ) {
+            const formattedUrl = queuedSong.formattedUrl
             playMusicFromYT.bind(this)(formattedUrl, channelId)
                 .then(() => {
-                    songFinishedStartNext().bind(this)
+                    songFinishedStartNext.bind(this)()
                 })
         }
     }
@@ -124,7 +131,7 @@ function playNextSong () {
 function songFinishedStartNext () {
     playing = false
     this.setPresence({game: {name: null}})
-    playNextSong()
+    playNextSong.bind(this)()
 }
 
 function playSoundFile (file, channelID) {
