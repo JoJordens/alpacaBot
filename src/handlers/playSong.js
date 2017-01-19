@@ -3,6 +3,9 @@ import fs from 'fs'
 import { spawn } from 'child_process'
 import ytdl from 'ytdl-core'
 
+const songQueue = []
+let playing = false
+
 const knownSongs = {
     'the setup': {
         file: './sounds/the_setup.mp3',
@@ -47,6 +50,10 @@ const knownSongs = {
     'halloween': {
         file:'./sounds/misfits_halloween.mp3',
         title: 'The Misfits - Halloween'
+    },
+    'dbd': {
+        file:'./sounds/dbd.mp3',
+        title: 'Dead by Daylight'
     }
 }
 
@@ -67,11 +74,8 @@ const handler = function handler ({user, userID, channelID, message, event}) {
     const song = knownSongs[songName]
 
     if ( song ) {
-        this.setPresence({game: {name: song.title}})
-        playSoundFile.bind(this)(song.file, channelId)
-            .then(() => {
-                this.setPresence({game: {name: null}})
-            })
+        songQueue.push(song, channelId)
+        playNextSong().bind(this)
     } else {
         const url = message[2]
         let formattedUrl
@@ -91,14 +95,37 @@ const handler = function handler ({user, userID, channelID, message, event}) {
             }
         }
 
-        playMusicFromYT.bind(this)(formattedUrl, channelId)
-            .then(() => {
-                this.setPresence({game: {name: null}})
-            })
+        songQueue.push(formattedUrl, channelId)
+        playNextSong().bind(this)
     }
 }
 
 export default handler
+
+function playNextSong () {
+    if ( !playing ) {
+        playing = true
+        const song = songQueue.shift()
+        if ( song.title ) {
+            this.setPresence({game: {name: song.title}})
+            playSoundFile.bind(this)(song.file, channelId)
+                .then(() => {
+                    songFinishedStartNext().bind(this)
+                })
+        } else if ( song ) {
+            playMusicFromYT.bind(this)(formattedUrl, channelId)
+                .then(() => {
+                    songFinishedStartNext().bind(this)
+                })
+        }
+    }
+}
+
+function songFinishedStartNext () {
+    playing = false
+    this.setPresence({game: {name: null}})
+    playNextSong()
+}
 
 function playSoundFile (file, channelID) {
     return new Promise((resolve, reject) => {
@@ -125,7 +152,7 @@ function playMusicFromYT (url, channelID) {
                 fileWriteStream.once('close', () => {
                     this.getAudioContext(channelID, function(error, stream) {
                         // TODO log error
-                        stream.once('done', function() {
+                        stream.once('fileEnd', function() {
                             deleteFile(fileName)
                             resolve()
                         })

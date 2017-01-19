@@ -3,3 +3,5 @@ config.json
 myProps.json
 index_old.js
 build/
+sounds/
+aliases.json
